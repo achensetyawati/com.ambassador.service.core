@@ -228,7 +228,7 @@ namespace Com.Ambassador.Service.Core.WebApi
             {
                 var context = serviceScope.ServiceProvider.GetService<CoreDbContext>();
                 context.Database.SetCommandTimeout(1000 * 60 * 10);
-                context.Database.Migrate();
+               // context.Database.Migrate();
             }
             app.UseAuthentication();
             app.UseCors("CorePolicy");
