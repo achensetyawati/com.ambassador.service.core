@@ -43,7 +43,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 			{
 				"Id", "Code", "Division", "Name"
 			};
-			IEnumerable<string> unit = new string[] { "C2A", "C2B", "C2C", "C1A", "C1B" };
+			IEnumerable<string> unit = new string[] { "AG1", "AG2" };
 			Query = from a in Query
 					where (unit.Contains(a.Code))
 					select new Unit {
