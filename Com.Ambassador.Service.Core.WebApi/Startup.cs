@@ -2,8 +2,7 @@
 using Com.Ambassador.Service.Core.Lib;
 using Com.Ambassador.Service.Core.Lib.Helpers.IdentityService;
 using Com.Ambassador.Service.Core.Lib.Helpers.ValidateService;
-using Com.Ambassador.Service.Core.Lib.Services;
-using Com.Ambassador.Service.Core.Lib.Services.Account_and_Roles;
+using Com.Ambassador.Service.Core.Lib.Services; 
 using Com.Ambassador.Service.Core.Lib.Services.GarmentEMKL;
 using Com.Ambassador.Service.Core.Lib.Services.GarmentFabricType;
 using Com.Ambassador.Service.Core.Lib.Services.GarmentForwarder;
@@ -97,9 +96,9 @@ namespace Com.Ambassador.Service.Core.WebApi
                 .AddScoped<FinishTypeService>()
                 .AddScoped<StandardTestsService>()
                 .AddScoped<LampStandardService>()
-                .AddScoped<PermissionService>()
+                 
                 .AddScoped<ColorTypeService>()
-                .AddScoped<RolesService>()
+                
                 .AddScoped<GarmentProductService>()
                 .AddScoped<GarmentCategoryService>()
                 .AddScoped<GarmentSupplierService>()
@@ -126,7 +125,7 @@ namespace Com.Ambassador.Service.Core.WebApi
                 .AddTransient<IGarmentAdditionalChargesService, GarmentAdditionalChargesService>()
                 .AddTransient<IIBCurrencyService, IBCurrencyService>()
                 .AddTransient<IBankCashReceiptTypeService, BankCashReceiptTypeService>()
-                .AddScoped<RolesService>()
+                
                 .AddScoped<SizeService>()
                 .AddScoped<VatService>()
                 .AddScoped<ProductTypeService>();
