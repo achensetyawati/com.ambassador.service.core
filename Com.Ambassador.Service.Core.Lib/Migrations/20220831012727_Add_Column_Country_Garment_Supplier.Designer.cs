@@ -11,9 +11,10 @@ using System;
 namespace Com.Ambassador.Service.Core.Lib.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    partial class CoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220831012727_Add_Column_Country_Garment_Supplier")]
+    partial class Add_Column_Country_Garment_Supplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
