@@ -27,5 +27,6 @@ namespace Com.Ambassador.Service.Core.Lib.ViewModels
 		public dynamic usetax { get; set; }
 
 		public IncomeTaxViewModel IncomeTaxes { get; set; }
+		public string country { get; set; }
 	}
 }
