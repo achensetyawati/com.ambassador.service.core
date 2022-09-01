@@ -41,6 +41,7 @@ namespace Com.Ambassador.Service.Core.Lib.Models
 		public int IncomeTaxesId { get; set; }
 		public string IncomeTaxesName { get; set; }
 		public double? IncomeTaxesRate { get; set; }
+		public string Country { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{

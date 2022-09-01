@@ -47,7 +47,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 			/* Const Select */
 			List<string> SelectedFields = new List<string>()
 			{
-				"Id", "code", "name", "address", "import", "NPWP", "usevat", "usetax", "IncomeTaxes"
+				"Id", "code", "name", "address", "import", "NPWP", "usevat", "usetax", "IncomeTaxes", "country"
 			};
 
 			Query = Query
@@ -61,6 +61,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 					NPWP = s.NPWP,
 					UseVat = s.UseVat,
 					UseTax = s.UseTax,
+					Country = s.Country,
 					IncomeTaxesId = s.IncomeTaxesId,
 					IncomeTaxesName = s.IncomeTaxesName,
 					IncomeTaxesRate = s.IncomeTaxesRate,
@@ -126,6 +127,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 			};
 			GarmentSupplierVM.NPWP = GarmentSupplier.NPWP;
 			GarmentSupplierVM.serialNumber = GarmentSupplier.SerialNumber;
+			GarmentSupplierVM.country = GarmentSupplier.Country;
 			
 
 			return GarmentSupplierVM;
@@ -166,6 +168,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 			}
 			GarmentSupplier.NPWP = GarmentSupplierVM.NPWP;
 			GarmentSupplier.SerialNumber = GarmentSupplierVM.serialNumber;
+			GarmentSupplier.Country = GarmentSupplierVM.country;
 			
 
 			return GarmentSupplier;
@@ -174,7 +177,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 		/* Upload CSV */
 		private readonly List<string> Header = new List<string>()
 		{
-			"Kode", "Nama Supplier", "Alamat", "Kontak", "PIC", "Import","Kena PPN","Kena PPH", "Jenis PPH", "Rate PPH", "NPWP", "Serial Number"
+			"Kode", "Nama Supplier", "Alamat", "Kontak", "PIC", "Import","Kena PPN","Kena PPH", "NPWP", "Serial Number", "Country"
 		};
 		public List<string> CsvHeader => Header;
 
@@ -191,10 +194,11 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 				Map(s => s.import).Index(5).TypeConverter<StringConverter>();
 				Map(s => s.usevat ).Index(6).TypeConverter<StringConverter>();
 				Map(s => s.usetax).Index(7).TypeConverter<StringConverter>();
-				Map(s => s.IncomeTaxes.name).Index(8);
-				Map(s => s.IncomeTaxes.rate).Index(9).TypeConverter<StringConverter>();
-				Map(s => s.NPWP).Index(10);
-				Map(s => s.serialNumber).Index(11);
+				//Map(s => s.IncomeTaxes.name).Index(8);
+				//Map(s => s.IncomeTaxes.rate).Index(9).TypeConverter<StringConverter>();
+				Map(s => s.NPWP).Index(8);
+				Map(s => s.serialNumber).Index(9);
+				Map(s => s.country).Index(10);
 			}
 		}
 
@@ -247,97 +251,97 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 				{
 					ErrorMessage = string.Concat(ErrorMessage, "Kena PPH harus diisi dengan True atau False, ");
                 }
-                bool tax;
-                bool.TryParse(Convert.ToString(GarmentSupplierVM.usetax), out tax);
-                double Rate = 0;
-                var isIncometaxRateNumber = double.TryParse(Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate), out Rate);
-                if (tax == true)
-                {
-                    if (string.IsNullOrWhiteSpace(GarmentSupplierVM.IncomeTaxes.name))
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, "Jenis PPH tidak boleh kosong, ");
-                    }
-                    string[] RateSplit = Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate).Split('.');
+                //bool tax;
+                //bool.TryParse(Convert.ToString(GarmentSupplierVM.usetax), out tax);
+                //double Rate = 0;
+                //var isIncometaxRateNumber = double.TryParse(Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate), out Rate);
+                //if (tax == true)
+                //{
+                //    if (string.IsNullOrWhiteSpace(GarmentSupplierVM.IncomeTaxes.name))
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, "Jenis PPH tidak boleh kosong, ");
+                //    }
+                //    string[] RateSplit = Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate).Split('.');
                     
-                    if (string.IsNullOrWhiteSpace(Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate)))
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH tidak boleh kosong, ");
-                    }
-                    else if (!isIncometaxRateNumber)
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH harus numerik, ");
-                    }
-                    else if (Rate < 0 || Rate == 0)
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH harus lebih besar dari 0, ");
-                    }
-                    else if (RateSplit.Count().Equals(2) && RateSplit[1].Length > 2)
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, "Kurs maksimal memiliki 2 digit dibelakang koma, ");
-                    }
-                    IncomeTax suppliers = DbContext.IncomeTaxes.FirstOrDefault(s => s.Name == GarmentSupplierVM.IncomeTaxes.name && s.Rate == Rate);
-                    if (suppliers == null)
-                    {
-                        IncomeTax incometaxesname = DbContext.IncomeTaxes.FirstOrDefault(s => s.Name == GarmentSupplierVM.IncomeTaxes.name);
-                        if (incometaxesname == null && GarmentSupplierVM.IncomeTaxes.name != "")
-                        {
-                            ErrorMessage = string.Concat(ErrorMessage, "Jenis PPH Tidak Ada di Master PPH, ");
-                        }
-                        IncomeTax incometaxesrate = DbContext.IncomeTaxes.FirstOrDefault(s => s.Rate == Rate);
-                        if (incometaxesrate == null && Rate != 0)
-                        {
-                            ErrorMessage = string.Concat(ErrorMessage, "Rate PPH Tidak Ada di Master PPH, ");
-                        }
-                        if (incometaxesrate != null && incometaxesname != null)
-                        {
-                            ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH dan Rate PPH tidak ada di Master PPH, ");
-                        }
+                //    if (string.IsNullOrWhiteSpace(Convert.ToString(GarmentSupplierVM.IncomeTaxes.rate)))
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH tidak boleh kosong, ");
+                //    }
+                //    else if (!isIncometaxRateNumber)
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH harus numerik, ");
+                //    }
+                //    else if (Rate < 0 || Rate == 0)
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, "Rate PPH harus lebih besar dari 0, ");
+                //    }
+                //    else if (RateSplit.Count().Equals(2) && RateSplit[1].Length > 2)
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, "Kurs maksimal memiliki 2 digit dibelakang koma, ");
+                //    }
+                //    IncomeTax suppliers = DbContext.IncomeTaxes.FirstOrDefault(s => s.Name == GarmentSupplierVM.IncomeTaxes.name && s.Rate == Rate);
+                //    if (suppliers == null)
+                //    {
+                //        IncomeTax incometaxesname = DbContext.IncomeTaxes.FirstOrDefault(s => s.Name == GarmentSupplierVM.IncomeTaxes.name);
+                //        if (incometaxesname == null && GarmentSupplierVM.IncomeTaxes.name != "")
+                //        {
+                //            ErrorMessage = string.Concat(ErrorMessage, "Jenis PPH Tidak Ada di Master PPH, ");
+                //        }
+                //        IncomeTax incometaxesrate = DbContext.IncomeTaxes.FirstOrDefault(s => s.Rate == Rate);
+                //        if (incometaxesrate == null && Rate != 0)
+                //        {
+                //            ErrorMessage = string.Concat(ErrorMessage, "Rate PPH Tidak Ada di Master PPH, ");
+                //        }
+                //        if (incometaxesrate != null && incometaxesname != null)
+                //        {
+                //            ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH dan Rate PPH tidak ada di Master PPH, ");
+                //        }
 
-                    }
-                    else
-                    {
-                        GarmentSupplierVM.IncomeTaxes.Id = suppliers.Id;
-                        GarmentSupplierVM.IncomeTaxes.name = suppliers.Name;
-                        GarmentSupplierVM.IncomeTaxes.rate = suppliers.Rate;
-                    }
-                }
-                else if (tax == false)
-                {
-                    if (GarmentSupplierVM.IncomeTaxes.name != "" && Rate != 0)
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH / Rate PPH harus kosong, ");
-                    }
-                    else if(GarmentSupplierVM.IncomeTaxes.name != "")
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH harus kosong, ");
-                    }
-                    else if (Rate != 0)
-                    {
-                        ErrorMessage = string.Concat(ErrorMessage, " Rate PPH harus kosong, ");
-                    }
-                    else
-                    {
-                        GarmentSupplierVM.IncomeTaxes.Id = 1;
-                        GarmentSupplierVM.IncomeTaxes.name = "";
-                        GarmentSupplierVM.IncomeTaxes.rate = 0;
-                    }
+                //    }
+                //    else
+                //    {
+                //        GarmentSupplierVM.IncomeTaxes.Id = suppliers.Id;
+                //        GarmentSupplierVM.IncomeTaxes.name = suppliers.Name;
+                //        GarmentSupplierVM.IncomeTaxes.rate = suppliers.Rate;
+                //    }
+                //}
+                //else if (tax == false)
+                //{
+                //    if (GarmentSupplierVM.IncomeTaxes.name != "" && Rate != 0)
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH / Rate PPH harus kosong, ");
+                //    }
+                //    else if(GarmentSupplierVM.IncomeTaxes.name != "")
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, " Jenis PPH harus kosong, ");
+                //    }
+                //    else if (Rate != 0)
+                //    {
+                //        ErrorMessage = string.Concat(ErrorMessage, " Rate PPH harus kosong, ");
+                //    }
+                //    else
+                //    {
+                //        GarmentSupplierVM.IncomeTaxes.Id = 1;
+                //        GarmentSupplierVM.IncomeTaxes.name = "";
+                //        GarmentSupplierVM.IncomeTaxes.rate = 0;
+                //    }
                     
-                }
+                //}
 
                 
-                if (string.IsNullOrEmpty(ErrorMessage))
-				{
-					/* Service Validation */
-					incomeTax = this.DbContext.Set<IncomeTax>().FirstOrDefault(d => d._IsDeleted.Equals(false) );
-					if (this.DbSet.Any(d => d._IsDeleted.Equals(false) && d.Code.Equals(GarmentSupplierVM.code)))
-					{
-						ErrorMessage = string.Concat(ErrorMessage, "Kode tidak boleh duplikat, ");
-					}
-					if (incomeTax==null)
-					{
-						ErrorMessage = string.Concat(ErrorMessage, "PPH tidak terdaftar dalam master Income Tax");
-					}
-				}
+    //            if (string.IsNullOrEmpty(ErrorMessage))
+				//{
+				//	/* Service Validation */
+				//	incomeTax = this.DbContext.Set<IncomeTax>().FirstOrDefault(d => d._IsDeleted.Equals(false) );
+				//	if (this.DbSet.Any(d => d._IsDeleted.Equals(false) && d.Code.Equals(GarmentSupplierVM.code)))
+				//	{
+				//		ErrorMessage = string.Concat(ErrorMessage, "Kode tidak boleh duplikat, ");
+				//	}
+				//	if (incomeTax==null)
+				//	{
+				//		ErrorMessage = string.Concat(ErrorMessage, "PPH tidak terdaftar dalam master Income Tax");
+				//	}
+				//}
 
 				if (string.IsNullOrEmpty(ErrorMessage))
 				{
@@ -355,11 +359,12 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 					Error.Add("PIC", GarmentSupplierVM.PIC);
 					Error.Add("Import", GarmentSupplierVM.import);
 					Error.Add("Kena PPN", GarmentSupplierVM.usevat);
-					Error.Add("Kena PPH", GarmentSupplierVM.usetax);
-					Error.Add("Jenis PPH", GarmentSupplierVM.IncomeTaxes.name);
+					//Error.Add("Kena PPH", GarmentSupplierVM.usetax);
+					//Error.Add("Jenis PPH", GarmentSupplierVM.IncomeTaxes.name);
 					Error.Add("Rate PPH", GarmentSupplierVM.IncomeTaxes.rate);
 					Error.Add("NPWP", GarmentSupplierVM.NPWP);
 					Error.Add("Serial Number", GarmentSupplierVM.serialNumber);
+					Error.Add("Country", GarmentSupplierVM.country);
 					Error.Add("Error", ErrorMessage);
 
 					ErrorList.Add(Error);
