@@ -53,7 +53,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.BudgetingCategory
             _dbContext.BudgetingCategories.Add(model);
 
             await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return model.Id;
         }
 
@@ -64,7 +64,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.BudgetingCategory
             _dbContext.BudgetingCategories.Update(model);
 
             await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return model.Id;
         }
 
@@ -88,13 +88,13 @@ namespace Com.Ambassador.Service.Core.Lib.Services.BudgetingCategory
             var data = pageable.Data.ToList();
 
             var totalData = pageable.TotalCount;
-            //SetCache();
+            SetCache();
             return new ReadResponse<Models.BudgetingCategory>(data, totalData, orderDictionary, new List<string>());
         }
 
         public Task<Models.BudgetingCategory> ReadModelById(int id)
         {
-            //SetCache();
+            SetCache();
             return _dbContext.BudgetingCategories.FirstOrDefaultAsync(entity => entity.Id == id);
         }
 
@@ -107,7 +107,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.BudgetingCategory
             _dbContext.BudgetingCategories.Update(existingModel);
 
             await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return model.Id;
         }
 
