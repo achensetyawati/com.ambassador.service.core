@@ -64,7 +64,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.GarmentEMKL
                 Attention = s.Attention,
                 PhoneNumber = s.PhoneNumber,
                 FaxNumber = s.FaxNumber,
-                Email = s.Email, 
+                Email = s.Email,
                 NPWP = s.NPWP,
             });
 

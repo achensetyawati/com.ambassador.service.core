@@ -1,4 +1,4 @@
-# com.danliris.service.core
+# com.ambassador.service.core
 [![codecov](https://codecov.io/gh/danliris/com.danliris.service.core/branch/dev/graph/badge.svg)](https://codecov.io/gh/danliris/com.danliris.service.core) [![Build Status](https://travis-ci.com/danliris/com.danliris.service.core.svg?branch=dev)](https://travis-ci.com/danliris/com.danliris.service.core) [![Maintainability](https://api.codeclimate.com/v1/badges/8e849f5ed403e713b9dc/maintainability)](https://codeclimate.com/github/danliris/com.danliris.service.core/maintainability)
 
 DanLiris Application is a enterprise project that aims to manage the business processes of a textile factory, PT. DanLiris.
