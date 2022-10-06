@@ -270,7 +270,8 @@ namespace Com.Ambassador.Service.Core.Lib.Services
             {
                 Id = x.Id,
                 Code = x.Code,
-                Name = x.Name
+                Name = x.Name,
+                Type = x.Type
             }).ToList();
         }
     }
