@@ -294,5 +294,18 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 
             return Query.Distinct();
         }
+
+        public List<GarmentBuyerBrand> GetSimple()
+        {
+            return this.DbSet.Select(x => new GarmentBuyerBrand()
+            {
+                Id = x.Id,
+                Code = x.Code,
+                Name = x.Name,
+                BuyerId = x.BuyerId,
+                BuyerCode = x.BuyerCode,
+                BuyerName = x.BuyerName
+            }).ToList();
+        }
     }
 }

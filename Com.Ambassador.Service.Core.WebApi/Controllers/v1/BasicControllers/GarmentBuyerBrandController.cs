@@ -23,6 +23,7 @@ namespace Com.Ambassador.Service.Core.WebApi.Controllers.v1.BasicControllers
         {
             this.service = service;
         }
+
         [HttpGet("byName")]
         public IActionResult GetByName(string Keyword = "", string filter = "{}")
         {
@@ -36,6 +37,28 @@ namespace Com.Ambassador.Service.Core.WebApi.Controllers.v1.BasicControllers
                 Dictionary<string, object> Result =
                     new ResultFormatter(ApiVersion, General.OK_STATUS_CODE, General.OK_MESSAGE)
                     .Ok(Data);
+
+                return Ok(Result);
+            }
+            catch (Exception e)
+            {
+                Dictionary<string, object> Result =
+                    new ResultFormatter(ApiVersion, General.INTERNAL_ERROR_STATUS_CODE, e.Message)
+                    .Fail();
+                return StatusCode(General.INTERNAL_ERROR_STATUS_CODE, Result);
+            }
+        }
+
+        [HttpGet("all")]
+        public IActionResult GetSimple()
+        {
+            try
+            {
+                List<GarmentBuyerBrand> Data = service.GetSimple();
+                var result = Data.Select(x => service.MapToViewModel(x));
+                Dictionary<string, object> Result =
+                    new ResultFormatter(ApiVersion, General.OK_STATUS_CODE, General.OK_MESSAGE)
+                    .Ok(result);
 
                 return Ok(Result);
             }
