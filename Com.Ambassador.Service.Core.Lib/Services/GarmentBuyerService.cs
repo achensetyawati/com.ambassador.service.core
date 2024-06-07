@@ -47,7 +47,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
             /* Const Select */
             List<string> SelectedFields = new List<string>()
             {
-                "Id", "Code", "Name", "Address", "City", "Country", "Contact", "Tempo", "_LastModifiedUtc", "Type", "BuyerType"
+                "Id", "Code", "Name", "Address", "City", "Country", "Contact", "Tempo", "_LastModifiedUtc", "Type", "BuyerType", "NIK"
             };
 
             Query = Query
@@ -63,7 +63,8 @@ namespace Com.Ambassador.Service.Core.Lib.Services
                     Tempo = b.Tempo,
                     Type = b.Type,
                     _LastModifiedUtc = b._LastModifiedUtc,
-                    BuyerType = b.BuyerType
+                    BuyerType = b.BuyerType,
+                    NIK = b.NIK
                 });
 
             /* Order */
@@ -119,6 +120,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
             garmentBuyerVM.Type = garmentBuyer.Type;
             garmentBuyerVM.NPWP = garmentBuyer.NPWP;
             garmentBuyerVM.BuyerType = garmentBuyer.BuyerType;
+            garmentBuyerVM.NIK = garmentBuyer.NIK;
 
             return garmentBuyerVM;
         }
@@ -147,6 +149,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
             garmentBuyer.Type = garmentBuyerVM.Type;
             garmentBuyer.NPWP = garmentBuyerVM.NPWP;
             garmentBuyer.BuyerType = garmentBuyerVM.BuyerType;
+            garmentBuyer.NIK = garmentBuyerVM.NIK;
 
             return garmentBuyer;
         }
@@ -154,7 +157,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
         /* Upload CSV */
         private readonly List<string> Header = new List<string>()
         {
-            "Kode Buyer", "Nama", "Alamat", "Kota", "Negara", "NPWP", "Jenis Buyer", "Kontak", "Tempo", "Tipe Badan Hukum"
+            "Kode Buyer", "Nama", "Alamat", "Kota", "Negara", "NPWP", "Jenis Buyer", "Kontak", "Tempo", "Tipe Badan Hukum", "NIK"
         };
 
         public List<string> CsvHeader => Header;
@@ -173,6 +176,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
                 Map(b => b.Contact).Index(7);
                 Map(b => b.Tempo).Index(8).TypeConverter<StringConverter>();
                 Map(b => b.BuyerType).Index(9);
+                Map(b => b.NIK).Index(9);
             }
         }
 
@@ -237,11 +241,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
                     }
                 }
 
-                if (string.IsNullOrWhiteSpace(garmentBuyerVM.BuyerType))
-                {
-                    ErrorMessage = string.Concat(ErrorMessage, "Tipe Badan Hukum tidak boleh kosong,");
-                }
-                else if (!Types.Any(t => t.Equals(garmentBuyerVM.BuyerType)))
+                if (!Types.Any(t => t.Equals(garmentBuyerVM.BuyerType)))
                 {
                     ErrorMessage = string.Concat(ErrorMessage, "Tipe Badan Hukum harus salah satu dari Badan Hukum, Non Badan Hukum; ");
                 }

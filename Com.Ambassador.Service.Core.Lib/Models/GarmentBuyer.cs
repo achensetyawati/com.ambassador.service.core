@@ -40,6 +40,8 @@ namespace Com.Ambassador.Service.Core.Lib.Models
 
         [StringLength(50)]
         public string BuyerType { get; set; }
+        [StringLength(100)]
+        public string NIK { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -25,5 +25,6 @@ namespace Com.Ambassador.Service.Core.Lib.ViewModels
         public string NPWP { get; set; }
 
         public string BuyerType { get; set; }
+        public string NIK { get; set; }
     }
 }
