@@ -23,5 +23,7 @@ namespace Com.Ambassador.Service.Core.Lib.ViewModels
         public string Type { get; set; }
         
         public string NPWP { get; set; }
+
+        public string BuyerType { get; set; }
     }
 }
