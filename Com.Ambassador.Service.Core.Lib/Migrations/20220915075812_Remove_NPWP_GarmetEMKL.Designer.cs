@@ -11,75 +11,15 @@ using System;
 namespace Com.Ambassador.Service.Core.Lib.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    partial class CoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220915075812_Remove_NPWP_GarmetEMKL")]
+    partial class Remove_NPWP_GarmetEMKL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Account_and_Roles.Menus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Menu")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("MenuName")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("SubMenu")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("UId")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("_CreatedAgent")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("_CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("_CreatedUtc");
-
-                    b.Property<string>("_DeletedAgent")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("_DeletedBy")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("_DeletedUtc");
-
-                    b.Property<bool>("_IsDeleted");
-
-                    b.Property<string>("_LastModifiedAgent")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("_LastModifiedBy")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("_LastModifiedUtc");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Menus");
-                });
 
             modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.AccountBank", b =>
                 {
@@ -1105,9 +1045,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(3000);
 
-                    b.Property<string>("BuyerType")
-                        .HasMaxLength(50);
-
                     b.Property<string>("City")
                         .HasMaxLength(500);
 
@@ -1119,9 +1056,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
 
                     b.Property<string>("Country")
                         .HasMaxLength(500);
-
-                    b.Property<string>("NIK")
-                        .HasMaxLength(100);
 
                     b.Property<string>("NPWP")
                         .HasMaxLength(100);
@@ -1541,9 +1475,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("FaxNumber")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("NPWP")
                         .HasMaxLength(50);
 
                     b.Property<string>("Name")

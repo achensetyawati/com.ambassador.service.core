@@ -53,7 +53,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.AccountingUnit
             MoonlayEntityExtension.FlagForCreate(model, _identityService.Username, UserAgent);
             _dbContext.AccountingUnits.Add(model);
             var result = await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return result;
         }
 
@@ -63,7 +63,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.AccountingUnit
             MoonlayEntityExtension.FlagForDelete(model, _identityService.Username, UserAgent);
             _dbContext.AccountingUnits.Update(model);
             var result = await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return result;
         }
 
@@ -87,13 +87,13 @@ namespace Com.Ambassador.Service.Core.Lib.Services.AccountingUnit
             var data = pageable.Data.ToList();
 
             var totalData = pageable.TotalCount;
-            //SetCache();
+            SetCache();
             return new ReadResponse<Models.AccountingUnit>(data, totalData, orderDictionary, new List<string>());
         }
 
         public Task<Models.AccountingUnit> ReadModelById(int id)
         {
-            //SetCache();
+            SetCache();
             return _dbContext.AccountingUnits.FirstOrDefaultAsync(entity => entity.Id == id);
         }
 
@@ -108,7 +108,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.AccountingUnit
             MoonlayEntityExtension.FlagForUpdate(existingModel, _identityService.Username, UserAgent);
             _dbContext.AccountingUnits.Update(existingModel);
             var result = await _dbContext.SaveChangesAsync();
-           // SetCache();
+            SetCache();
             return result;
         }
 
@@ -204,7 +204,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services.AccountingUnit
             }).ToList();
             _dbContext.AccountingUnits.AddRange(data);
             var result = await _dbContext.SaveChangesAsync();
-            //SetCache();
+            SetCache();
             return result;
         }
     }

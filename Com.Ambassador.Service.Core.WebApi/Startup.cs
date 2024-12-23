@@ -96,9 +96,9 @@ namespace Com.Ambassador.Service.Core.WebApi
                 .AddScoped<FinishTypeService>()
                 .AddScoped<StandardTestsService>()
                 .AddScoped<LampStandardService>()
-                 
+
                 .AddScoped<ColorTypeService>()
-                
+
                 .AddScoped<GarmentProductService>()
                 .AddScoped<GarmentCategoryService>()
                 .AddScoped<GarmentSupplierService>()
@@ -125,10 +125,11 @@ namespace Com.Ambassador.Service.Core.WebApi
                 .AddTransient<IGarmentAdditionalChargesService, GarmentAdditionalChargesService>()
                 .AddTransient<IIBCurrencyService, IBCurrencyService>()
                 .AddTransient<IBankCashReceiptTypeService, BankCashReceiptTypeService>()
-                
+
                 .AddScoped<SizeService>()
                 .AddScoped<VatService>()
-                .AddScoped<ProductTypeService>();
+                .AddScoped<ProductTypeService>()
+                .AddScoped<MenuService>();
 
 
             RegisterServices(services);

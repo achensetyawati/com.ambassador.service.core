@@ -11,16 +11,91 @@ using System;
 namespace Com.Ambassador.Service.Core.Lib.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    partial class CoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230216041455_Add-Menus")]
+    partial class AddMenus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Account_and_Roles.Menus", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.AccountProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<string>("Firstname");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("Lastname");
+
+                    b.Property<string>("UId")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountProfiles");
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.AccountRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int>("RoleId");
+
+                    b.Property<string>("UId")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_CreatedUtc");
+
+                    b.Property<string>("_DeletedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_DeletedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_DeletedUtc");
+
+                    b.Property<bool>("_IsDeleted");
+
+                    b.Property<string>("_LastModifiedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_LastModifiedUtc");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AccountRoles");
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Menus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -81,7 +156,121 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Menus");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.AccountBank", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Division");
+
+                    b.Property<int>("RoleId");
+
+                    b.Property<string>("UId")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Unit");
+
+                    b.Property<string>("UnitCode");
+
+                    b.Property<int>("UnitId");
+
+                    b.Property<string>("_CreatedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_CreatedUtc");
+
+                    b.Property<string>("_DeletedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_DeletedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_DeletedUtc");
+
+                    b.Property<bool>("_IsDeleted");
+
+                    b.Property<string>("_LastModifiedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_LastModifiedUtc");
+
+                    b.Property<int>("permission");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UId")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_CreatedUtc");
+
+                    b.Property<string>("_DeletedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_DeletedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_DeletedUtc");
+
+                    b.Property<bool>("_IsDeleted");
+
+                    b.Property<string>("_LastModifiedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_LastModifiedUtc");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.AccountBank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -179,7 +368,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("AccountBanks");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.AccountingCategory", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.AccountingCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -231,7 +420,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("AccountingCategories");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.AccountingUnit", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.AccountingUnit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -293,7 +482,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("AccountingUnits");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.BankCashReceiptTypeModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.BankCashReceiptTypeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -348,7 +537,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("BankCashReceiptTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.BICurrency", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.BICurrency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -402,7 +591,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("BICurrencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Budget", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Budget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -455,7 +644,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Budgets");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.BudgetCurrency", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.BudgetCurrency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -511,7 +700,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("BudgetCurrencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.BudgetingCategory", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.BudgetingCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -561,7 +750,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("BudgetingCategories");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Buyer", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Buyer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -642,7 +831,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Buyers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Category", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -718,7 +907,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.ColorTypes", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.ColorTypes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -771,7 +960,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("ColorTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Comodity", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Comodity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -822,7 +1011,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Comodities");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Currency", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Currency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -879,7 +1068,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.DesignMotive", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.DesignMotive", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -932,7 +1121,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("DesignMotives");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Division", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Division", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -995,7 +1184,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Divisions");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.FinishType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.FinishType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1048,7 +1237,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("FinishType");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentAdditionalChargesModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentAdditionalChargesModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1095,7 +1284,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentAdditionalCharges");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentBuyer", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentBuyer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1104,9 +1293,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
 
                     b.Property<string>("Address")
                         .HasMaxLength(3000);
-
-                    b.Property<string>("BuyerType")
-                        .HasMaxLength(50);
 
                     b.Property<string>("City")
                         .HasMaxLength(500);
@@ -1119,9 +1305,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
 
                     b.Property<string>("Country")
                         .HasMaxLength(500);
-
-                    b.Property<string>("NIK")
-                        .HasMaxLength(100);
 
                     b.Property<string>("NPWP")
                         .HasMaxLength(100);
@@ -1174,7 +1357,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentBuyers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentBuyerBrand", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentBuyerBrand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1233,7 +1416,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentBuyerBrands");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentCategory", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1297,7 +1480,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentCategories");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentComodity", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentComodity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1348,7 +1531,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentComodities");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentCourierModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentCourierModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1416,7 +1599,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentCouriers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentCurrency", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentCurrency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1470,7 +1653,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentCurrencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentDetailCurrency", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentDetailCurrency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1521,7 +1704,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentDetailCurrencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentEMKLModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentEMKLModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1589,7 +1772,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentEMKLs");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentFabricTypeModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentFabricTypeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1636,7 +1819,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentFabricTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentForwarderModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentForwarderModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1704,7 +1887,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentForwarders");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentInsuranceModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentInsuranceModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1775,7 +1958,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentInsurances");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentLeftoverWarehouseBuyerModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentLeftoverWarehouseBuyerModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1843,7 +2026,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentLeftoverWarehouseBuyers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentLeftoverWarehouseComodityModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentLeftoverWarehouseComodityModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1893,7 +2076,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentLeftoverWarehouseComodities");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentLeftoverWarehouseProductModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentLeftoverWarehouseProductModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -1956,7 +2139,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentLeftoverWarehouseProducts");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentProduct", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2031,7 +2214,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentProducts");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentSection", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentSection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2039,6 +2222,8 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.Property<bool>("Active");
 
                     b.Property<string>("ApprovalCC");
+
+                    b.Property<string>("ApprovalKadiv");
 
                     b.Property<string>("ApprovalRO");
 
@@ -2088,7 +2273,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentSections");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentShippingStaffModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentShippingStaffModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2135,7 +2320,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentShippingStaffs");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentSupplier", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentSupplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2150,8 +2335,6 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
 
                     b.Property<string>("Contact")
                         .HasMaxLength(500);
-
-                    b.Property<string>("Country");
 
                     b.Property<bool?>("Import");
 
@@ -2217,7 +2400,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentSuppliers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.GarmentTransactionTypeModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentTransactionTypeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2275,7 +2458,75 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("GarmentTransactionTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Holiday", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.GarmentWareHouseModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(3000);
+
+                    b.Property<string>("Attention")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FaxNumber")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("NPWP")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("_CreatedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_CreatedUtc");
+
+                    b.Property<string>("_DeletedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_DeletedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_DeletedUtc");
+
+                    b.Property<bool>("_IsDeleted");
+
+                    b.Property<string>("_LastModifiedAgent")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("_LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("_LastModifiedUtc");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GarmentWareHouses");
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Holiday", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2337,7 +2588,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Holidays");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.IBCurrencyModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.IBCurrencyModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2389,7 +2640,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("IBCurrencies");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.IncomeTax", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.IncomeTax", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2445,7 +2696,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("IncomeTaxes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.LampStandard", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.LampStandard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2498,7 +2749,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("LampStandard");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.MachineSpinningModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.MachineSpinningModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2574,7 +2825,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("MachineSpinnings");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.MachineSpinningProcessType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.MachineSpinningProcessType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2624,7 +2875,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("MachineSpinningProcessType");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.MappingCategory", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.MappingCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2640,7 +2891,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("MappingCategories");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.MaterialConstruction", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.MaterialConstruction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2693,7 +2944,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("MaterialConstructions");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.OrderType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.OrderType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2752,7 +3003,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("OrderTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.ProcessType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.ProcessType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2817,7 +3068,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("ProcessType");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Product", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -2891,7 +3142,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.ProductSPPProperty", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.ProductSPPProperty", b =>
                 {
                     b.Property<int>("ProductId");
 
@@ -2982,7 +3233,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("ProductSPPProperties");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.ProductType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.ProductType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3035,7 +3286,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("ProductTypes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Quality", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Quality", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3086,7 +3337,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Qualities");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.SizeModel", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.SizeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3137,7 +3388,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Sizes");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.StandardMinuteValue", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.StandardMinuteValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3204,7 +3455,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("StandardMinuteValues");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.StandardTests", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.StandardTests", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3257,7 +3508,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("StandardTests");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Storage", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Storage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3318,7 +3569,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Supplier", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3388,7 +3639,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.TermOfPayment", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.TermOfPayment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3443,7 +3694,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("TermOfPayments");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Unit", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Unit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3513,7 +3764,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Uom", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Uom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3563,7 +3814,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("UnitOfMeasurements");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.Vat", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Vat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3618,7 +3869,7 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("Vat");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.YarnMaterial", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.YarnMaterial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -3671,19 +3922,35 @@ namespace Com.Ambassador.Service.Core.Lib.Migrations
                     b.ToTable("YarnMaterials");
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.MachineSpinningProcessType", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.AccountRole", b =>
                 {
-                    b.HasOne("Com.Ambassador.Service.Core.Lib.Models.MachineSpinningModel", "MachineSpinning")
+                    b.HasOne("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Role", "Role")
+                        .WithMany("AccountRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Permission", b =>
+                {
+                    b.HasOne("Com.DanLiris.Service.Core.Lib.Models.Account_and_Roles.Role", "Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.MachineSpinningProcessType", b =>
+                {
+                    b.HasOne("Com.DanLiris.Service.Core.Lib.Models.MachineSpinningModel", "MachineSpinning")
                         .WithMany("Types")
                         .HasForeignKey("MachineSpinningId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Com.Ambassador.Service.Core.Lib.Models.ProductSPPProperty", b =>
+            modelBuilder.Entity("Com.DanLiris.Service.Core.Lib.Models.ProductSPPProperty", b =>
                 {
-                    b.HasOne("Com.Ambassador.Service.Core.Lib.Models.Product", "Product")
+                    b.HasOne("Com.DanLiris.Service.Core.Lib.Models.Product", "Product")
                         .WithOne("SPPProperties")
-                        .HasForeignKey("Com.Ambassador.Service.Core.Lib.Models.ProductSPPProperty", "ProductId")
+                        .HasForeignKey("Com.DanLiris.Service.Core.Lib.Models.ProductSPPProperty", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

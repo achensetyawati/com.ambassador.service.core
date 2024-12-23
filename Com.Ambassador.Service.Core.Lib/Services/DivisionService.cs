@@ -86,7 +86,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 
             int TotalData = pageable.TotalCount;
 
-            //SetCache();
+            SetCache();
 
             return Tuple.Create(Data, TotalData, OrderDictionary, SelectedFields);
         }
@@ -250,7 +250,7 @@ namespace Com.Ambassador.Service.Core.Lib.Services
 
             int TotalData = pageable.TotalCount;
 
-            //SetCache();
+            SetCache();
 
             return Tuple.Create(Data, TotalData, OrderDictionary, SelectedFields);
         }
